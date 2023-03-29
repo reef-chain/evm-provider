@@ -29,10 +29,11 @@
     "@polkadot/types": "~10.2.1",
     "@polkadot/util": "~11.1.2",
     "@polkadot/util-crypto": "~11.1.2",
+    "@reef-defi/type-definitions": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "4.8.1",
     "blakejs": "~1.1.0",
     "ethers": "~5.5.0",
-    "reef_defi": "1.1.0"
+    "reef_defi": "file:.yalc/reef_defi"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

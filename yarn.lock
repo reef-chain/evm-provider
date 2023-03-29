@@ -2658,6 +2658,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@open-web3/orml-type-definitions@npm:^1.0.1":
+  version: 1.1.4
+  resolution: "@open-web3/orml-type-definitions@npm:1.1.4"
+  dependencies:
+    lodash.merge: ^4.6.2
+  checksum: 7a6aaef419db46346ec9449cab6b5b12f0a80779ba036561521e0f84bbed85e7a5e243409276d1dd5ace1d1446ca7a188e1133e9c031156b16faf282f3960344
+  languageName: node
+  linkType: hard
+
 "@open-web3/scanner@npm:1.0.1":
   version: 1.0.1
   resolution: "@open-web3/scanner@npm:1.0.1"
@@ -3087,6 +3096,7 @@ __metadata:
     "@polkadot/types": ~10.2.1
     "@polkadot/util": ~11.1.2
     "@polkadot/util-crypto": ~11.1.2
+    "@reef-defi/type-definitions": ^1.1.0
     "@types/chai": ^4.2.14
     "@types/jest": ^27.0.1
     "@types/validator": ^13.1.0
@@ -3098,6 +3108,15 @@ __metadata:
     typescript: ~4.4.3
   languageName: unknown
   linkType: soft
+
+"@reef-defi/type-definitions@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@reef-defi/type-definitions@npm:1.1.0"
+  dependencies:
+    "@open-web3/orml-type-definitions": ^1.0.1
+  checksum: 8264f673e41974b8023cfdd85e39e8a73c0342e502abea8b17f24106ce9da50596acb2ee284b364189af309a687e6429dd193132ff4f820ef7f54cf176dfd57d
+  languageName: node
+  linkType: hard
 
 "@rushstack/eslint-patch@npm:^1.0.6":
   version: 1.1.3
@@ -10314,8 +10333,8 @@ __metadata:
 
 "reef_defi@file:.yalc/reef_defi::locator=%40reef-defi%2Fevm-provider%40workspace%3A.":
   version: 1.1.0
-  resolution: "reef_defi@file:.yalc/reef_defi#.yalc/reef_defi::hash=47c8d0&locator=%40reef-defi%2Fevm-provider%40workspace%3A."
-  checksum: 4e47556b9a60c44b806f6408eeb5334d832ac8d55fc42f48563f6e2e715452d0f3825a34531442e582edcb8fc67f0abae73b35fa62ef5532b339756e08111d2b
+  resolution: "reef_defi@file:.yalc/reef_defi#.yalc/reef_defi::hash=179122&locator=%40reef-defi%2Fevm-provider%40workspace%3A."
+  checksum: 54bbc9074971408e1303c92ed6d29e4b643b18fff73c5e22bf3907402a9e29f1a72d229808e9844898da32b67f77536ef3c9ede225d51dcaa35349f334cc700b
   languageName: node
   linkType: hard
 

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { options } from 'reef_defi/packages/api/build';
 import {
   EvmAccountInfo,
   EvmContractInfo
@@ -23,10 +22,10 @@ import { Deferrable, resolveProperties } from '@ethersproject/properties';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { Logger } from '@ethersproject/logger';
 import type { Network } from '@ethersproject/networks';
-import Scanner from '@open-web3/scanner';
-import { ApiPromise } from '@polkadot/api';
+// import Scanner from '@open-web3/scanner';
+import { ApiPromise, WsProvider } from '@polkadot/api';
 import { ApiOptions } from '@polkadot/api/types';
-import type { WsProvider } from '@polkadot/rpc-provider';
+import { types } from '@reef-defi/type-definitions';
 import { Option } from '@polkadot/types';
 import {
   hexToU8a,
@@ -47,7 +46,7 @@ export class Provider implements AbstractProvider {
   readonly resolveApi: Promise<ApiPromise>;
   readonly _isProvider: boolean;
   readonly dataProvider?: AbstractDataProvider;
-  readonly scanner: Scanner;
+  // readonly scanner: Scanner;
 
   /**
    *
@@ -55,22 +54,24 @@ export class Provider implements AbstractProvider {
    * @param dataProvider
    */
   constructor(_apiOptions: ApiOptions, dataProvider?: AbstractDataProvider) {
-    const apiOptions = options(_apiOptions);
+    // const apiOptions = options(_apiOptions);
 
-    this.api = new ApiPromise(apiOptions);
+    // this.api = new ApiPromise(apiOptions);
+    const provider = new WsProvider('wss://rpc-testnet.reefscan.com/ws');
+    this.api = new ApiPromise({ types, provider });
 
     this.resolveApi = this.api.isReady;
     this._isProvider = true;
 
     this.dataProvider = dataProvider;
-    this.scanner = new Scanner({
-      wsProvider: apiOptions.provider as WsProvider,
-      types: apiOptions.types,
-      typesAlias: apiOptions.typesAlias,
-      typesSpec: apiOptions.typesSpec,
-      typesChain: apiOptions.typesChain,
-      typesBundle: apiOptions.typesBundle
-    });
+    // this.scanner = new Scanner({
+    //   wsProvider: provider,
+    //   types: types //,
+    //   // typesAlias: apiOptions.typesAlias,
+    //   // typesSpec: apiOptions.typesSpec,
+    //   // typesChain: apiOptions.typesChain,
+    //   // typesBundle: apiOptions.typesBundle
+    // });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
@@ -165,12 +166,12 @@ export class Provider implements AbstractProvider {
 
     const address = await resolveEvmAddress(this, addressOrName);
 
-    let account: Option<EvmAccountInfo>;
-
+    // let account: Option<EvmAccountInfo>;
+    let account: any;
+    console.log('PROVIDER getTransactionCount call');
     if (resolvedBlockTag === 'pending') {
-      account = await this.api.query.evm.accounts<Option<EvmAccountInfo>>(
-        address
-      );
+      // account = await this.api.query.evm.accounts<Option<EvmAccountInfo>>(
+      account = await this.api.query.evm.accounts(address);
     } else {
       const blockHash = await this._resolveBlockHash(blockTag);
 
@@ -391,7 +392,7 @@ export class Provider implements AbstractProvider {
     weightFee: BigNumber;
   }> {
     const resolved = await this._resolveTransaction(transaction);
-
+    console.log('ESTRRRRR111');
     const from = await resolved.from;
     const value = await resolved.value;
     const to = await resolved.to;
@@ -542,93 +543,94 @@ export class Provider implements AbstractProvider {
     blockHash: string,
     from: string
   ): Promise<TransactionReceipt> {
-    const detail = await this.scanner.getBlockDetail({
-      blockHash: blockHash
-    });
-
-    const blockNumber = detail.number;
-    const extrinsic = detail.extrinsics.find(
-      ({ hash }) => hash === transactionHash
-    );
-
-    if (!extrinsic) {
-      return logger.throwError(`Transaction hash not found`);
-    }
-
-    const transactionIndex = extrinsic.index;
-
-    const events = detail.events.filter(
-      ({ phaseIndex }) => phaseIndex === transactionIndex
-    );
-
-    const findCreated = events.find(
-      (x) =>
-        x.section.toUpperCase() === 'EVM' &&
-        x.method.toUpperCase() === 'CREATED'
-    );
-
-    const findExecuted = events.find(
-      (x) =>
-        x.section.toUpperCase() === 'EVM' &&
-        x.method.toUpperCase() === 'EXECUTED'
-    );
-
-    const result = events.find(
-      (x) =>
-        x.section.toUpperCase() === 'SYSTEM' &&
-        x.method.toUpperCase() === 'EXTRINSICSUCCESS'
-    );
-
-    if (!result) {
-      return logger.throwError(`Can't find event`);
-    }
-
-    const status = findCreated || findExecuted ? 1 : 0;
-
-    const contractAddress = findCreated ? findCreated.args[0] : null;
-
-    const to = findExecuted ? findExecuted.args[0] : null;
-
-    const logs = events
-      .filter((e) => {
-        return (
-          e.method.toUpperCase() === 'LOG' && e.section.toUpperCase() === 'EVM'
-        );
-      })
-      .map((log, index) => {
-        return {
-          transactionHash,
-          blockNumber,
-          blockHash,
-          transactionIndex,
-          removed: false,
-          address: log.args[0].address,
-          data: log.args[0].data,
-          topics: log.args[0].topics,
-          logIndex: index
-        };
-      });
-
-    const gasUsed = BigNumber.from(result.args[0].weight);
-
-    return {
-      to,
-      from,
-      contractAddress,
-      transactionIndex,
-      gasUsed,
-      logsBloom: '0x',
-      blockHash,
-      transactionHash,
-      logs,
-      blockNumber,
-      confirmations: 4,
-      cumulativeGasUsed: gasUsed,
-      byzantium: false,
-      status,
-      effectiveGasPrice: BigNumber.from('1'),
-      type: 0
-    };
+    return Promise.resolve({} as TransactionReceipt);
+    // const detail = await this.scanner.getBlockDetail({
+    //   blockHash: blockHash
+    // });
+    //
+    // const blockNumber = detail.number;
+    // const extrinsic = detail.extrinsics.find(
+    //   ({ hash }) => hash === transactionHash
+    // );
+    //
+    // if (!extrinsic) {
+    //   return logger.throwError(`Transaction hash not found`);
+    // }
+    //
+    // const transactionIndex = extrinsic.index;
+    //
+    // const events = detail.events.filter(
+    //   ({ phaseIndex }) => phaseIndex === transactionIndex
+    // );
+    //
+    // const findCreated = events.find(
+    //   (x) =>
+    //     x.section.toUpperCase() === 'EVM' &&
+    //     x.method.toUpperCase() === 'CREATED'
+    // );
+    //
+    // const findExecuted = events.find(
+    //   (x) =>
+    //     x.section.toUpperCase() === 'EVM' &&
+    //     x.method.toUpperCase() === 'EXECUTED'
+    // );
+    //
+    // const result = events.find(
+    //   (x) =>
+    //     x.section.toUpperCase() === 'SYSTEM' &&
+    //     x.method.toUpperCase() === 'EXTRINSICSUCCESS'
+    // );
+    //
+    // if (!result) {
+    //   return logger.throwError(`Can't find event`);
+    // }
+    //
+    // const status = findCreated || findExecuted ? 1 : 0;
+    //
+    // const contractAddress = findCreated ? findCreated.args[0] : null;
+    //
+    // const to = findExecuted ? findExecuted.args[0] : null;
+    //
+    // const logs = events
+    //   .filter((e) => {
+    //     return (
+    //       e.method.toUpperCase() === 'LOG' && e.section.toUpperCase() === 'EVM'
+    //     );
+    //   })
+    //   .map((log, index) => {
+    //     return {
+    //       transactionHash,
+    //       blockNumber,
+    //       blockHash,
+    //       transactionIndex,
+    //       removed: false,
+    //       address: log.args[0].address,
+    //       data: log.args[0].data,
+    //       topics: log.args[0].topics,
+    //       logIndex: index
+    //     };
+    //   });
+    //
+    // const gasUsed = BigNumber.from(result.args[0].weight);
+    //
+    // return {
+    //   to,
+    //   from,
+    //   contractAddress,
+    //   transactionIndex,
+    //   gasUsed,
+    //   logsBloom: '0x',
+    //   blockHash,
+    //   transactionHash,
+    //   logs,
+    //   blockNumber,
+    //   confirmations: 4,
+    //   cumulativeGasUsed: gasUsed,
+    //   byzantium: false,
+    //   status,
+    //   effectiveGasPrice: BigNumber.from('1'),
+    //   type: 0
+    // };
   }
 
   async _resolveBlockHash(
