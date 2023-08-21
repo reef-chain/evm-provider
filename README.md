@@ -184,6 +184,43 @@ const main = async (): Promise<void> =>  {
 main();
 ```
 
+### Build payload, sign and send transaction
+
+This example illustrates how to build a payload to be signed with an EVM account. Once signed, the signature is added to the extrinsic and sent to the chain.
+
+```javascript
+
+import { PopulatedTransaction } from "ethers";
+import { ethers } from "ethers";
+import { Provider } from '.';
+import { buildPayload, sendSignedTransaction } from './utils';
+
+const buildSignAndSend = async (provider: Provider, signerAddress: string): Promise<void> =>  {
+    const contract = new ethers.Contract(
+      flipperContractAddress,
+      FlipperAbi,
+      provider as any
+    );
+
+    const tx: PopulatedTransaction = await contract.populateTransaction.flip();
+
+    const { payload, extrinsic } = await buildPayload(provider, signerAddress, tx);
+
+    // (...) Add logic to send payload to signer and receive signature
+
+    extrinsic.addSignature(signerAddress, signature, payload);
+
+    const txResult = await sendSignedTransaction(
+      provider,
+      signerAddress,
+      tx,
+      payload,
+      extrinsic,
+      signature
+    );
+};
+```
+
 ### Provider
 
 The Provider provides an API for interacting with nodes and is an instance of `ethers.js` [AbstractProvider](https://docs.ethers.io/v5/single-page/#/v5/api/providers/-%23-providers).

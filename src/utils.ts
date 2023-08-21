@@ -16,6 +16,8 @@ import {
 import BN from 'bn.js';
 import { decodeAddress, encodeAddress } from '@polkadot/util-crypto';
 import { toUtf8Bytes } from '@ethersproject/strings';
+import type { TransactionReceipt } from "@ethersproject/abstract-provider";
+import { PopulatedTransaction } from "ethers";
 import { Provider } from './Provider';
 import { Signer } from './Signer';
 
@@ -184,4 +186,123 @@ export async function resolveAddress(
   }
   const result = await provider.api.query.evmAccounts.accounts(resolved);
   return result.toString();
+}
+
+export async function buildPayload (
+  provider: Provider,
+  signerAddress: string,
+  tx: PopulatedTransaction
+): Promise<{payload: any, extrinsic: any}> {
+  try {
+    const lastHeader = await provider.api.rpc.chain.getHeader();
+    const blockNumber = provider.api.registry.createType(
+      "BlockNumber",
+      lastHeader.number.toNumber()
+    );
+
+    const signerEvmAddress =
+      await provider.api.query.evmAccounts.evmAddresses(signerAddress);
+    if (signerEvmAddress.isEmpty)
+      throw new Error(`No EVM address found for signer ${signerAddress}`);
+    tx.from = signerEvmAddress.toString();
+    const resources = await provider.estimateResources(tx);
+    const gasLimit = resources.gas.mul(31).div(10); // Multiply by 3.1
+    const storageLimit = resources.storage.mul(31).div(10); // Multiply by 3.1
+
+    const extrinsic = provider.api.tx.evm.call(
+      tx.to,
+      tx.data,
+      toBN(tx.value),
+      toBN(gasLimit),
+      toBN(storageLimit.isNegative() ? 0 : storageLimit)
+    );
+    const method = provider.api.createType("Call", extrinsic);
+
+    const era = provider.api.registry.createType("ExtrinsicEra", {
+      current: lastHeader.number.toNumber(),
+      period: 64,
+    });
+    const nonce = await provider.api.rpc.system.accountNextIndex(
+      signerAddress
+    );
+    const tip = provider.api.registry
+      .createType("Compact<Balance>", 0)
+      .toHex();
+
+    const payload = {
+      specVersion: provider.api.runtimeVersion.specVersion.toString(),
+      transactionVersion:
+        provider.api.runtimeVersion.transactionVersion.toHex(),
+      address: signerAddress,
+      blockHash: lastHeader.hash.toHex(),
+      blockNumber: blockNumber.toHex(),
+      era: era.toHex(),
+      genesisHash: provider.api.genesisHash.toHex(),
+      method: method.toHex(),
+      nonce: nonce.toHex(),
+      signedExtensions: [
+        "CheckSpecVersion",
+        "CheckTxVersion",
+        "CheckGenesis",
+        "CheckMortality",
+        "CheckNonce",
+        "CheckWeight",
+        "ChargeTransactionPayment",
+        "SetEvmOrigin",
+      ],
+      tip: tip,
+      version: extrinsic.version,
+    };
+
+    return { payload, extrinsic };
+  } catch (e) {
+    console.log("Error building payload:", e);
+    throw e;
+  }
+};
+
+export async function sendSignedTransaction (
+  provider: Provider,
+  signerAddress: string,
+  tx: PopulatedTransaction,
+  payload: any,
+  extrinsic: any,
+  signature: string,
+): Promise<any> {
+  extrinsic.addSignature(signerAddress, signature, payload);
+
+  const txResult = await new Promise((resolve, reject) => {
+    extrinsic
+      .send((result: any) => {
+        handleTxResponse(result, provider.api)
+          .then(() => {
+            resolve({
+              hash: extrinsic.hash.toHex(),
+              from: tx.from || "",
+              confirmations: 0,
+              nonce: (tx.nonce || 0).toString(),
+              gasLimit: (tx.gasLimit || 0).toString(),
+              gasPrice: "0",
+              data: dataToString(tx.data!),
+              value: (tx.value || 0).toString(),
+              chainId: 13939,
+              wait: (): Promise<TransactionReceipt> => {
+                return provider._resolveTransactionReceipt(
+                  extrinsic.hash.toHex(),
+                  result.status.asInBlock.toHex(),
+                  tx.from || ""
+                );
+              },
+            });
+          })
+          .catch(({ message }) => {
+            reject(message);
+          });
+      })
+      .catch((error: any) => {
+        reject(error && error.message);
+      });
+  });
+
+  return txResult;
 }
