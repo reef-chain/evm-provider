@@ -1,9 +1,9 @@
 {
-  "name": "@reef-defi/evm-provider",
-  "version": "1.0.10",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
-  "repository": "git@github.com:reef-defi/evm-provider.js.git",
+  "name": "@reef-chain/evm-provider",
+  "version": "1.0.11",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "repository": "git@github.com:reef-chain/evm-provider.git",
   "author": "Reef Developers",
   "license": "Apache-2.0",
   "scripts": {
@@ -23,16 +23,19 @@
   "dependencies": {
     "@open-web3/dev-config": "0.1.13",
     "@open-web3/scanner": "1.0.1",
-    "@polkadot/api": "~10.2.1",
-    "@polkadot/keyring": "~11.1.2",
-    "@polkadot/rpc-provider": "~10.2.1",
-    "@polkadot/types": "~10.2.1",
-    "@polkadot/util": "~11.1.2",
-    "@polkadot/util-crypto": "~11.1.2",
+    "@polkadot/api": "~6.4.2",
+    "@polkadot/keyring": "~7.9.2",
+    "@polkadot/rpc-provider": "~6.4.2",
+    "@polkadot/types": "~6.4.2",
+    "@polkadot/util": "~7.9.2",
+    "@polkadot/util-crypto": "~7.9.2",
+    "@reef-defi/api": "^1.0.4",
+    "@reef-defi/api-derive": "^1.0.4",
+    "@reef-defi/type-definitions": "^1.0.4",
+    "@reef-defi/types": "^1.0.4",
     "@typescript-eslint/eslint-plugin": "4.8.1",
     "blakejs": "~1.1.0",
-    "ethers": "~5.5.0",
-    "reef_defi": "1.1.0"
+    "ethers": "~5.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -44,6 +47,6 @@
     "ts-node": "~10.2.0",
     "typescript": "~4.4.3"
   },
-  "packageManager": "yarn@3.0.1",
+  "packageManager": "yarn@3.6.2",
   "stableVersion": "1.0.3"
 }

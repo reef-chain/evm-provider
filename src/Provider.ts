@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { options } from 'reef_defi/packages/api/build';
-import {
-  EvmAccountInfo,
-  EvmContractInfo
-} from 'reef_defi/packages/types/build/interfaces';
+import { options } from '@reef-defi/api';
+import { EvmAccountInfo, EvmContractInfo } from '@reef-defi/types/interfaces';
 import type {
   Block,
   BlockTag,
@@ -139,14 +136,13 @@ export class Provider implements AbstractProvider {
       address = await this._toAddress(addressOrName);
     }
 
-    // const blockHash = await this._resolveBlockHash(blockTag);
+    const blockHash = await this._resolveBlockHash(blockTag);
 
-    // const accountInfo = blockHash
-    //   ? await this.api.query.system.account.at(blockHash, address)
-    //   : await this.api.query.system.account(address);
+    const accountInfo = blockHash
+      ? await this.api.query.system.account.at(blockHash, address)
+      : await this.api.query.system.account(address);
 
-    // todo fix this: return BigNumber.from(accountInfo.data.free.toBn().toString());
-    return BigNumber.from(0);
+    return BigNumber.from(accountInfo.data.free.toBn().toString());
   }
 
   /**
