@@ -6,7 +6,6 @@
   "repository": "git@github.com:reef-chain/evm-provider.git",
   "author": "Reef Developers",
   "license": "Apache-2.0",
-  "private": false,
   "scripts": {
     "build": "polkadot-dev-build-ts",
     "build:release": "polkadot-ci-ghact-build",
