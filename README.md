@@ -1,6 +1,6 @@
 # @reef-chain/evm-provider
 
-`evm-provider.js` implements a web3 provider which can interact with the [Reef chain EVM](https://github.com/reef-defi/reef-chain).
+`evm-provider` implements a web3 provider which can interact with the [Reef chain EVM](https://github.com/reef-defi/reef-chain).
 
 If you only care about developing Solidity contracts on the Reef chain, `@reef-chain/evm-provider` is used in our [Hardhat Reef environment](https://github.com/reef-defi/hardhat-reef). The environment simplifies and abstracts all the low-level intricacies, so you can only focus on the Solidity part. See [hardhat-reef-examples repo](https://github.com/reef-defi/hardhat-reef-examples/blob/master/scripts/flipper/deploy.js) for more examples.
 
@@ -132,7 +132,7 @@ export default setup;
 
 ## EVM interaction
 
-Most, but not all, of `evm-provider.js` API is compatible with `ethers.js`. If you are not familiar with `ethers.js`, you can start by looking at its [documentation](https://docs.ethers.io/v5/single-page/). See our [Reefswap example](https://github.com/reef-defi/reefswap/blob/653e6f4e77d228bba32fe233bff4a4811eae335e/src/deploy.ts) on how it uses the above `setup` script to deploy and interact with the EVM.
+Most, but not all, of `evm-provider` API is compatible with `ethers.js`. If you are not familiar with `ethers.js`, you can start by looking at its [documentation](https://docs.ethers.io/v5/single-page/). See our [Reefswap example](https://github.com/reef-defi/reefswap/blob/653e6f4e77d228bba32fe233bff4a4811eae335e/src/deploy.ts) on how it uses the above `setup` script to deploy and interact with the EVM.
 
 ### Get EVM address
 
