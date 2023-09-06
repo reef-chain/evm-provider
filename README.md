@@ -1,19 +1,19 @@
-# @reef-defi/evm-provider.js
+# @reef-chain/evm-provider
 
 `evm-provider.js` implements a web3 provider which can interact with the [Reef chain EVM](https://github.com/reef-defi/reef-chain).
 
-If you only care about developing Solidity contracts on the Reef chain, `@reef-defi/evm-provider.js` is used in our [Hardhat Reef environment](https://github.com/reef-defi/hardhat-reef). The environment simplifies and abstracts all the low-level intricacies, so you can only focus on the Solidity part. See [hardhat-reef-examples repo](https://github.com/reef-defi/hardhat-reef-examples/blob/master/scripts/flipper/deploy.js) for more examples.
+If you only care about developing Solidity contracts on the Reef chain, `@reef-chain/evm-provider` is used in our [Hardhat Reef environment](https://github.com/reef-defi/hardhat-reef). The environment simplifies and abstracts all the low-level intricacies, so you can only focus on the Solidity part. See [hardhat-reef-examples repo](https://github.com/reef-defi/hardhat-reef-examples/blob/master/scripts/flipper/deploy.js) for more examples.
 
 If you need more control, then it can also be used as a Substrate provider to query or to interact with the Reef chain using the same calls as in the [Polkadot.js](https://polkadot.js.org/docs/api).
 
 ## Installation
 
-Install dependencies with `yarn` [see issue](https://github.com/reef-defi/evm-provider.js/issues/5#issuecomment-912389541).
+Install dependencies with `yarn` [see issue](https://github.com/reef-chain/evm-provider.js/issues/5#issuecomment-912389541).
 
 ### Yarn
 
 ```bash
-yarn add @reef-defi/evm-provider
+yarn add @reef-chain/evm-provider
 ```
 
 ## Getting started
@@ -25,7 +25,7 @@ import {
   TestAccountSigningKey,
   Provider,
   Signer,
-} from "@reef-defi/evm-provider";
+} from "@reef-chain/evm-provider";
 import { WsProvider, Keyring } from "@polkadot/api";
 import { createTestPairs } from "@polkadot/keyring/testingPairs";
 import { KeyringPair } from "@polkadot/keyring/types";
@@ -77,7 +77,7 @@ with this object you can interact with the Substrate chain.
 If you want to interact with injected sources (e.g. from Polkadot{.js}) you can do the following:
 
 ```javascript
-import { Provider, Signer, } from "@reef-defi/evm-provider";
+import { Provider, Signer, } from "@reef-chain/evm-provider";
 import { WsProvider } from "@polkadot/api";
 import { web3Accounts, web3Enable } from "@polkadot/extension-dapp";
 
@@ -248,7 +248,7 @@ await factory.deploy(<contract_args>, {
 If you require maximum flexibility `evm-provider` exports maximum gas and storage limit:
 
 ```
-import { MAX_GAS_LIMIT, MAX_STORAGE_LIMIT } from "@reef-defi/evm-provider";
+import { MAX_GAS_LIMIT, MAX_STORAGE_LIMIT } from "@reef-chain/evm-provider";
 ```
 which default to `U64MAX` and `U32MAX` respectively.
 
