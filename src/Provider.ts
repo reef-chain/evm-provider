@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { options } from '@reef-defi/api';
-import { EvmAccountInfo, EvmContractInfo } from '@reef-defi/types/interfaces';
 import type {
   Block,
   BlockTag,
@@ -34,9 +32,13 @@ import {
   u8aFixLength
 } from '@polkadot/util';
 import { encodeAddress } from '@polkadot/util-crypto';
+import '@polkadot/api-augment';
 import type BN from 'bn.js';
+
 import { AbstractDataProvider } from './DataProvider';
 import { resolveAddress, resolveEvmAddress, toBN } from './utils';
+import { options } from './reef-api/options';
+import { EvmAccountInfo, EvmContractInfo } from './types';
 
 const logger = new Logger('evm-provider');
 export class Provider implements AbstractProvider {
