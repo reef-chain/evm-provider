@@ -1,6 +1,6 @@
 {
   "name": "@reef-chain/evm-provider",
-  "version": "2.0.0-alpha2",
+  "version": "2.0.0-alpha3",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": "git@github.com:reef-chain/evm-provider.git",
@@ -9,6 +9,7 @@
   "scripts": {
     "build": "rm -rf build&&rm tsconfig.tsbuildinfo&&polkadot-dev-build-ts",
     "build:release": "polkadot-ci-ghact-build",
+    "publish": "yarn build&&npm publish ./build",
     "lint": "polkadot-dev-run-lint",
     "clean": "polkadot-dev-clean-build",
     "postinstall": "polkadot-dev-yarn-only",
