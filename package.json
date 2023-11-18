@@ -1,14 +1,15 @@
 {
   "name": "@reef-chain/evm-provider",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": "git@github.com:reef-chain/evm-provider.git",
   "author": "Reef Developers",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "rm -rf build&&rm tsconfig.tsbuildinfo&&polkadot-dev-build-ts",
+    "build": "rm -rf build&&rm tsconfig.tsbuildinfo&&polkadot-dev-build-ts&&cp yarn.lock build/yarn.lock",
     "build:release": "polkadot-ci-ghact-build",
+    "publish": "yarn build&&cd build&&npm publish",
     "lint": "polkadot-dev-run-lint",
     "clean": "polkadot-dev-clean-build",
     "postinstall": "polkadot-dev-yarn-only",
