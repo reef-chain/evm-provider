@@ -1,3 +1,7 @@
+### 2.0.0 (2023.11.19)
+
+ - works with @polkadot/api@10.10.1 and dependant libs
+
 ### 1.0.3 (2021.11.05)
 
 - **New**: `estimateResources` takes into account `customData` field provided by `ethers.js` to defined `storageLimit`
