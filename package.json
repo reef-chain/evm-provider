@@ -1,6 +1,6 @@
 {
   "name": "@reef-chain/evm-provider",
-  "version": "1.0.15",
+  "version": "2.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": "git@github.com:reef-chain/evm-provider.git",
@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rm -rf build&&rm tsconfig.tsbuildinfo&&polkadot-dev-build-ts&&cp yarn.lock build/yarn.lock",
     "build:release": "polkadot-ci-ghact-build",
-    "publish": "yarn build&&cd build&&npm publish",
+    "publish": "yarn build&&npm publish ./build",
     "lint": "polkadot-dev-run-lint",
     "clean": "polkadot-dev-clean-build",
     "postinstall": "polkadot-dev-yarn-only",
@@ -22,18 +22,15 @@
     "@ethersproject/abstract-provider": "~5.5.0"
   },
   "dependencies": {
-    "@open-web3/dev-config": "0.1.13",
-    "@open-web3/scanner": "1.0.1",
-    "@polkadot/api": "~6.4.2",
-    "@polkadot/keyring": "~7.9.2",
-    "@polkadot/rpc-provider": "~6.4.2",
-    "@polkadot/types": "~6.4.2",
-    "@polkadot/util": "~7.9.2",
-    "@polkadot/util-crypto": "~7.9.2",
-    "@reef-defi/api": "^1.0.4",
-    "@reef-defi/api-derive": "^1.0.4",
-    "@reef-defi/type-definitions": "^1.0.4",
-    "@reef-defi/types": "^1.0.4",
+    "@open-web3/dev-config": "^0.2.9",
+    "@open-web3/orml-api-derive": "^2.0.1",
+    "@open-web3/scanner": "^2.0.1",
+    "@polkadot/api": "^10.10.1",
+    "@polkadot/keyring": "^12.5.1",
+    "@polkadot/rpc-provider": "^10.10.1",
+    "@polkadot/types": "^10.10.1",
+    "@polkadot/util": "^12.5.1",
+    "@polkadot/util-crypto": "^12.5.1",
     "@typescript-eslint/eslint-plugin": "4.8.1",
     "blakejs": "~1.1.0",
     "ethers": "~5.5.0"
@@ -46,8 +43,8 @@
     "@types/jest": "^27.0.1",
     "@types/validator": "^13.1.0",
     "ts-node": "~10.2.0",
-    "typescript": "~4.4.3"
+    "typescript": "~5.2.2"
   },
   "packageManager": "yarn@4.0.1",
-  "stableVersion": "1.0.13"
+  "stableVersion": "1.0.15"
 }

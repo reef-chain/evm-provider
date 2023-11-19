@@ -16,8 +16,8 @@ import {
 import BN from 'bn.js';
 import { decodeAddress, encodeAddress } from '@polkadot/util-crypto';
 import { toUtf8Bytes } from '@ethersproject/strings';
-import type { TransactionReceipt } from "@ethersproject/abstract-provider";
-import { PopulatedTransaction } from "ethers";
+import type { TransactionReceipt } from '@ethersproject/abstract-provider';
+import { PopulatedTransaction } from 'ethers';
 import { Provider } from './Provider';
 import { Signer } from './Signer';
 
@@ -188,20 +188,21 @@ export async function resolveAddress(
   return result.toString();
 }
 
-export async function buildPayload (
+export async function buildPayload(
   provider: Provider,
   signerAddress: string,
   tx: PopulatedTransaction
-): Promise<{payload: any, extrinsic: any}> {
+): Promise<{ payload: any; extrinsic: any }> {
   try {
     const lastHeader = await provider.api.rpc.chain.getHeader();
     const blockNumber = provider.api.registry.createType(
-      "BlockNumber",
+      'BlockNumber',
       lastHeader.number.toNumber()
     );
 
-    const signerEvmAddress =
-      await provider.api.query.evmAccounts.evmAddresses(signerAddress);
+    const signerEvmAddress = await provider.api.query.evmAccounts.evmAddresses(
+      signerAddress
+    );
     if (signerEvmAddress.isEmpty)
       throw new Error(`No EVM address found for signer ${signerAddress}`);
     tx.from = signerEvmAddress.toString();
@@ -216,18 +217,14 @@ export async function buildPayload (
       toBN(gasLimit),
       toBN(storageLimit.isNegative() ? 0 : storageLimit)
     );
-    const method = provider.api.createType("Call", extrinsic);
+    const method = provider.api.createType('Call', extrinsic);
 
-    const era = provider.api.registry.createType("ExtrinsicEra", {
+    const era = provider.api.registry.createType('ExtrinsicEra', {
       current: lastHeader.number.toNumber(),
-      period: 64,
+      period: 64
     });
-    const nonce = await provider.api.rpc.system.accountNextIndex(
-      signerAddress
-    );
-    const tip = provider.api.registry
-      .createType("Compact<Balance>", 0)
-      .toHex();
+    const nonce = await provider.api.rpc.system.accountNextIndex(signerAddress);
+    const tip = provider.api.registry.createType('Compact<Balance>', 0).toHex();
 
     const payload = {
       specVersion: provider.api.runtimeVersion.specVersion.toString(),
@@ -241,33 +238,33 @@ export async function buildPayload (
       method: method.toHex(),
       nonce: nonce.toHex(),
       signedExtensions: [
-        "CheckSpecVersion",
-        "CheckTxVersion",
-        "CheckGenesis",
-        "CheckMortality",
-        "CheckNonce",
-        "CheckWeight",
-        "ChargeTransactionPayment",
-        "SetEvmOrigin",
+        'CheckSpecVersion',
+        'CheckTxVersion',
+        'CheckGenesis',
+        'CheckMortality',
+        'CheckNonce',
+        'CheckWeight',
+        'ChargeTransactionPayment',
+        'SetEvmOrigin'
       ],
       tip: tip,
-      version: extrinsic.version,
+      version: extrinsic.version
     };
 
     return { payload, extrinsic };
   } catch (e) {
-    console.log("Error building payload:", e);
+    console.log('Error building payload:', e);
     throw e;
   }
-};
+}
 
-export async function sendSignedTransaction (
+export async function sendSignedTransaction(
   provider: Provider,
   signerAddress: string,
   tx: PopulatedTransaction,
   payload: any,
   extrinsic: any,
-  signature: string,
+  signature: string
 ): Promise<any> {
   extrinsic.addSignature(signerAddress, signature, payload);
 
@@ -278,11 +275,11 @@ export async function sendSignedTransaction (
           .then(() => {
             resolve({
               hash: extrinsic.hash.toHex(),
-              from: tx.from || "",
+              from: tx.from || '',
               confirmations: 0,
               nonce: (tx.nonce || 0).toString(),
               gasLimit: (tx.gasLimit || 0).toString(),
-              gasPrice: "0",
+              gasPrice: '0',
               data: dataToString(tx.data!),
               value: (tx.value || 0).toString(),
               chainId: 13939,
@@ -290,9 +287,9 @@ export async function sendSignedTransaction (
                 return provider._resolveTransactionReceipt(
                   extrinsic.hash.toHex(),
                   result.status.asInBlock.toHex(),
-                  tx.from || ""
+                  tx.from || ''
                 );
-              },
+              }
             });
           })
           .catch(({ message }) => {
