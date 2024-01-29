@@ -1,6 +1,6 @@
 {
   "name": "@reef-chain/evm-provider",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": "git@github.com:reef-chain/evm-provider.git",
@@ -8,11 +8,11 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "rm -rf build&&rm tsconfig.tsbuildinfo&&polkadot-dev-build-ts&&cp yarn.lock build/yarn.lock",
+    "build:clean": "rm -rf node_modules&&rm -f yarn.lock&&yarn install&&yarn build",
     "build:release": "polkadot-ci-ghact-build",
     "publish": "yarn build&&npm publish ./build",
     "lint": "polkadot-dev-run-lint",
     "clean": "polkadot-dev-clean-build",
-    "postinstall": "polkadot-dev-yarn-only",
     "test": "polkadot-dev-run-test --coverage --runInBand --testPathIgnorePatterns e2e",
     "test:one": "polkadot-dev-run-test",
     "test:watch": "polkadot-dev-run-test --watch"
@@ -25,14 +25,14 @@
     "@open-web3/dev-config": "^0.2.9",
     "@open-web3/orml-api-derive": "^2.0.1",
     "@open-web3/scanner": "^2.0.1",
-    "@polkadot/api": "^10.10.1",
-    "@polkadot/keyring": "^12.5.1",
-    "@polkadot/rpc-provider": "^10.10.1",
-    "@polkadot/types": "^10.10.1",
-    "@polkadot/util": "^12.5.1",
-    "@polkadot/util-crypto": "^12.5.1",
+    "@polkadot/api": "^10.11.2",
+    "@polkadot/keyring": "^12.6.2",
+    "@polkadot/rpc-provider": "^10.11.2",
+    "@polkadot/types": "^10.11.2",
+    "@polkadot/util": "^12.6.2",
+    "@polkadot/util-crypto": "^12.6.2",
     "@typescript-eslint/eslint-plugin": "4.8.1",
-    "blakejs": "~1.1.0",
+    "blakejs": "~1.2.1",
     "ethers": "~5.5.0"
   },
   "devDependencies": {
@@ -45,6 +45,6 @@
     "ts-node": "~10.2.0",
     "typescript": "~5.2.2"
   },
-  "packageManager": "yarn@4.0.1",
+  "packageManager": "yarn@4.0.2",
   "stableVersion": "1.0.15"
 }
