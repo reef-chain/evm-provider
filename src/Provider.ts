@@ -18,7 +18,7 @@ import { Deferrable, resolveProperties } from '@ethersproject/properties';
 import { BigNumber, BigNumberish } from '@ethersproject/bignumber';
 import { Logger } from '@ethersproject/logger';
 import type { Network } from '@ethersproject/networks';
-import Scanner from '@open-web3/scanner';
+import Scanner from './scanner/Scanner';
 import { ApiPromise } from '@polkadot/api';
 import { ApiOptions } from '@polkadot/api/types';
 import type { WsProvider } from '@polkadot/rpc-provider';
