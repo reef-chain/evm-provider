@@ -3424,32 +3424,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reef-chain/evm-provider@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@reef-chain/evm-provider@workspace:."
-  dependencies:
-    "@babel/core": "npm:^7.12.9"
-    "@babel/register": "npm:^7.12.1"
-    "@babel/runtime": "npm:^7.12.5"
-    "@open-web3/dev-config": "npm:^0.2.9"
-    "@open-web3/orml-api-derive": "npm:^2.0.1"
-    "@polkadot/api": "npm:^13.2.1"
-    "@polkadot/keyring": "npm:^13.1.1"
-    "@polkadot/rpc-provider": "npm:^13.2.1"
-    "@polkadot/types": "npm:^13.2.1"
-    "@polkadot/util": "npm:^13.1.1"
-    "@polkadot/util-crypto": "npm:^13.1.1"
-    "@types/chai": "npm:^4.2.14"
-    "@types/jest": "npm:^27.0.1"
-    "@types/validator": "npm:^13.1.0"
-    "@typescript-eslint/eslint-plugin": "npm:4.8.1"
-    blakejs: "npm:~1.2.1"
-    ethers: "npm:~5.5.0"
-    ts-node: "npm:~10.2.0"
-    typescript: "npm:~5.2.2"
-  languageName: unknown
-  linkType: soft
-
 "@rtsao/scc@npm:^1.1.0":
   version: 1.1.0
   resolution: "@rtsao/scc@npm:1.1.0"
@@ -4880,9 +4854,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001669":
-  version: 1.0.30001677
-  resolution: "caniuse-lite@npm:1.0.30001677"
-  checksum: 22b4aa738b213b5d0bc820c26ba23fa265ca90a5c59776e1a686b9ab6fff9120d0825fd920c0a601a4b65056ef40d01548405feb95c8dd6083255f50c71a0864
+  version: 1.0.30001678
+  resolution: "caniuse-lite@npm:1.0.30001678"
+  checksum: 3209cc0f0b9683514916bed676d8f7965cae7faccaccb90f97c11fbdee32cd3f2f3b9cfec388ef400476299c3dd496fb1f8734c31c6199c4799b42813391517f
   languageName: node
   linkType: hard
 
@@ -5279,13 +5253,13 @@ __metadata:
   linkType: hard
 
 "cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "cross-spawn@npm:7.0.3"
+  version: 7.0.4
+  resolution: "cross-spawn@npm:7.0.4"
   dependencies:
     path-key: "npm:^3.1.0"
     shebang-command: "npm:^2.0.0"
     which: "npm:^2.0.1"
-  checksum: 5738c312387081c98d69c98e105b6327b069197f864a60593245d64c8089c8a0a744e16349281210d56835bb9274130d825a78b2ad6853ca13cfbeffc0c31750
+  checksum: 04f6c70dcbdd156f53073f13730f71160dabb91c8dfbdb24a873f4580ad7ca4b73c062ddfaaa2ba46d0dac433856d0cc0a07ff7173cd5404fefde952e87c9dbf
   languageName: node
   linkType: hard
 
@@ -6505,6 +6479,33 @@ __metadata:
   checksum: 4ba5c00c506e6c786b4d6262cfbce90ddc14c10d4667e5c83ae993c9de88aa856033994dd2b35b83e8dc1170e224e66a319fa80adc4c32adcd2379bbc75da814
   languageName: node
   linkType: hard
+
+"evm-provider-anukul@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "evm-provider-anukul@workspace:."
+  dependencies:
+    "@babel/core": "npm:^7.12.9"
+    "@babel/register": "npm:^7.12.1"
+    "@babel/runtime": "npm:^7.12.5"
+    "@ethersproject/bignumber": "npm:^5.7.0"
+    "@open-web3/dev-config": "npm:^0.2.9"
+    "@open-web3/orml-api-derive": "npm:^2.0.1"
+    "@polkadot/api": "npm:^13.2.1"
+    "@polkadot/keyring": "npm:^13.1.1"
+    "@polkadot/rpc-provider": "npm:^13.2.1"
+    "@polkadot/types": "npm:^13.2.1"
+    "@polkadot/util": "npm:^13.1.1"
+    "@polkadot/util-crypto": "npm:^13.1.1"
+    "@types/chai": "npm:^4.2.14"
+    "@types/jest": "npm:^27.0.1"
+    "@types/validator": "npm:^13.1.0"
+    "@typescript-eslint/eslint-plugin": "npm:4.8.1"
+    blakejs: "npm:~1.2.1"
+    ethers: "npm:~5.5.0"
+    ts-node: "npm:~10.2.0"
+    typescript: "npm:~5.2.2"
+  languageName: unknown
+  linkType: soft
 
 "execa@npm:^5.0.0":
   version: 5.1.1

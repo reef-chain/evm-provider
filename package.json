@@ -1,6 +1,6 @@
 {
   "name": "@reef-chain/evm-provider",
-  "version": "3.0.0",
+  "version": "4.1.1",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": "git@github.com:reef-chain/evm-provider.git",
@@ -22,6 +22,7 @@
     "@ethersproject/abstract-provider": "~5.5.0"
   },
   "dependencies": {
+    "@ethersproject/bignumber": "^5.7.0",
     "@open-web3/dev-config": "^0.2.9",
     "@open-web3/orml-api-derive": "^2.0.1",
     "@polkadot/api": "^13.2.1",
