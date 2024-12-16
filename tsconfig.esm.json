@@ -21,7 +21,8 @@
     "sourceMap": true,
     "rootDir": "./src",
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./build/esm"
   },
   "exclude": [
     "node_modules",

@@ -1,0 +1,31 @@
+{
+    "extends": "@open-web3/dev-config/config/tsconfig.json",
+    "compilerOptions": {
+      "composite": true,
+      "declaration": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": false,
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "noEmitOnError": true,
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitAny": true,
+      "noImplicitReturns": true,
+      "noUnusedLocals": true,
+      "preserveSymlinks": true,
+      "preserveWatchOutput": true,
+      "pretty": false,
+      "target": "es2015",
+      "skipLibCheck": true,
+      "sourceMap": true,
+      "rootDir": "./src",
+      "resolveJsonModule": true,
+      "outDir": "./build/common"
+    },
+    "exclude": [
+      "node_modules",
+      "build/**/*",
+      "**/build/**/*"
+    ]
+  }
