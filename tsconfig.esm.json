@@ -20,7 +20,9 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "rootDir": "./src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./build/esm"
   },
   "exclude": [
     "node_modules",
