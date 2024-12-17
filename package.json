@@ -1,6 +1,6 @@
 {
   "name": "@reef-chain/evm-provider",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": "git@github.com:reef-chain/evm-provider.git",

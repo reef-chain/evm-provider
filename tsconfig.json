@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": false,
-    "module": "ESNext", 
+    "module": "commonjs",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
@@ -16,12 +16,11 @@
     "preserveSymlinks": true,
     "preserveWatchOutput": true,
     "pretty": false,
-    "target": "ESNext", 
+    "target": "es2015",
     "skipLibCheck": true,
     "sourceMap": true,
     "rootDir": "./src",
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "resolveJsonModule": true
   },
   "exclude": [
     "node_modules",
